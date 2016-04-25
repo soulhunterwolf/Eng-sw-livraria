@@ -1,5 +1,5 @@
-package fatec.edu.dao;
 
+package fatec.edu.dao;
 
 import java.util.List;
 
@@ -17,3 +17,4 @@ public interface ILivroDao {
 	public List<Livro> pesquisaPorEditora(String editora);
 	public List<Livro> pesquisaPorCategoria(String categoria);
 }
+

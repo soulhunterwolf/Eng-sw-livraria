@@ -96,6 +96,5 @@ public class LivroDaoImpl implements ILivroDao {
 		return null;
 	}
 
-
-
 }
+
