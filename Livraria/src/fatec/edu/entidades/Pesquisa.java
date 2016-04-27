@@ -7,6 +7,7 @@ public class Pesquisa {
 	private List<Autor> autorMaisPesquisado;
 	private List<Livro> livrosMaisPesquisados;
 	private List<Editora> editoraMaisPesquisada;
+	
 	public List<Autor> getAutorMaisPesquisado() {
 		return autorMaisPesquisado;
 	}

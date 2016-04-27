@@ -5,6 +5,7 @@ public class Pagamento {
 	private int valor;
 	private String formaPagamento;
 	private long idPagamento;
+	
 	public int getValor() {
 		return valor;
 	}

@@ -3,16 +3,27 @@ package fatec.edu.entidades;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity(name = "livro")
+@Entity
 @Table(name = "livro")
 public class Livro {
 
+	@Column(name = "isbn", unique = true, length = 13)
+	@Id
 	private int isbn;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "livro_autor", joinColumns = @JoinColumn
+	(name = "livro_id", referencedColumnName = "isbn"), 
+	inverseJoinColumns = @JoinColumn(name = "autor_id", referencedColumnName = "nome"))
 	private List<Autor> autor;
 	private String editora;
 	private String resumoLivro;
@@ -21,9 +32,7 @@ public class Livro {
 	private int numPaginas;
 	private Date dataPublicacao;
 	private String titutlo;
-	
-	@Column(name="isbn", unique=true, length=13)
-	@Id
+
 	public int getIsbn() {
 		return isbn;
 	}
@@ -31,7 +40,7 @@ public class Livro {
 	public void setIsbn(int isbn) {
 		this.isbn = isbn;
 	}
-	@Column(name="autores")
+
 	public List<Autor> getAutor() {
 		return autor;
 	}
@@ -39,7 +48,8 @@ public class Livro {
 	public void setAutor(List<Autor> autor) {
 		this.autor = autor;
 	}
-	@Column(name="editora", length=50)
+
+	@Column(name = "editora", length = 50)
 	public String getEditora() {
 		return editora;
 	}
@@ -47,7 +57,8 @@ public class Livro {
 	public void setEditora(String editora) {
 		this.editora = editora;
 	}
-	@Column(name="resumo_livro", length=250)
+
+	@Column(name = "resumo_livro", length = 250)
 	public String getResumoLivro() {
 		return resumoLivro;
 	}
@@ -55,7 +66,8 @@ public class Livro {
 	public void setResumoLivro(String resumoLivro) {
 		this.resumoLivro = resumoLivro;
 	}
-	@Column(name="sumario")
+
+	@Column(name = "sumario")
 	public String getSumario() {
 		return sumario;
 	}
@@ -63,7 +75,8 @@ public class Livro {
 	public void setSumario(String sumario) {
 		this.sumario = sumario;
 	}
-	@Column(name="formato")
+
+	@Column(name = "formato")
 	public FormatosEnum getFormato() {
 		return formato;
 	}
@@ -71,7 +84,8 @@ public class Livro {
 	public void setFormato(FormatosEnum formato) {
 		this.formato = formato;
 	}
-	@Column(name="num_paginas")
+
+	@Column(name = "num_paginas")
 	public int getNumPaginas() {
 		return numPaginas;
 	}
@@ -79,7 +93,8 @@ public class Livro {
 	public void setNumPaginas(int numPaginas) {
 		this.numPaginas = numPaginas;
 	}
-	@Column(name="data_publicacao")
+
+	@Column(name = "data_publicacao")
 	public Date getDataPublicacao() {
 		return dataPublicacao;
 	}
@@ -87,7 +102,8 @@ public class Livro {
 	public void setDataPublicacao(Date dataPublicacao) {
 		this.dataPublicacao = dataPublicacao;
 	}
-	@Column(name="titulo")
+
+	@Column(name = "titulo")
 	public String getTitutlo() {
 		return titutlo;
 	}

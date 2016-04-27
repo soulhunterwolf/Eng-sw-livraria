@@ -7,6 +7,7 @@ public class Relatorio {
 	private List<Autor> autorMaisVendido;
 	private int qtdMaisVendido;
 	private List<Cliente> clienteMaisFreq;
+	
 	public List<Autor> getAutorMaisVendido() {
 		return autorMaisVendido;
 	}

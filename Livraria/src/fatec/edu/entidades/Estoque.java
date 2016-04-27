@@ -5,6 +5,7 @@ public class Estoque {
 	private int qtdLivros;
 	private int limiteEstoque;
 	private String local;
+	
 	public int getQtdLivros() {
 		return qtdLivros;
 	}

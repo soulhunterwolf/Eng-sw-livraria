@@ -5,6 +5,7 @@ public class UsuarioInterno {
 	private String nome;
 	private String funcao;
 	private int identificacao;
+	
 	public String getNome() {
 		return nome;
 	}
