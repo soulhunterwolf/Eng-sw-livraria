@@ -12,36 +12,44 @@
 
 	<p:menubar>
 
-		<p:submenu label="Inserir" icon="ui-icon-contact">
-			<p:menuitem value="Livro" url="#" />
-			<p:menuitem value="Autor" url="#" />
+		<p:submenu label="Inserir" icon="ui-icon-plusthick">
+			<p:menuitem value="Livro" url="#" icon="ui-icon-plusthick" />
+			<p:separator />
+			<p:menuitem value="Autor" url="#" icon="ui-icon-plusthick" />
+			<p:separator />
 		</p:submenu>
 
 
-		<p:submenu label="Alterar">
-			<p:menuitem value="Livro" url="#" />
-			<p:menuitem value="Autor" url="#" />
+		<p:submenu label="Alterar" icon="ui-icon-pencil">
+			<p:menuitem value="Livro" url="#" icon="ui-icon-pencil" />
+			<p:separator />
+			<p:menuitem value="Autor" url="#" icon="ui-icon-pencil" />
+			<p:separator />
 		</p:submenu>
 
-		<p:submenu label="Remover">
-			<p:menuitem value="Livro" url="#" />
-			<p:menuitem value="Autor" url="#" />
+		<p:submenu label="Remover" icon="ui-icon-closethick" >
+			<p:menuitem value="Livro" url="#" icon="ui-icon-closethick" />
+			<p:separator />
+			<p:menuitem value="Autor" url="#" icon="ui-icon-closethick" />
+			<p:separator />
 		</p:submenu>
 		
-		<p:submenu label="Procurar">
-			<p:menuitem value="Livro" url="#" />
-			<p:menuitem value="Autor" url="#" />
+		<p:submenu label="Procurar" icon="ui-icon-search" >
+			<p:menuitem value="Livro" url="#" icon="ui-icon-search" />
+			<p:separator />
+			<p:menuitem value="Autor" url="#" icon="ui-icon-search" />
+			<p:separator />
 		</p:submenu>
 
 		<f:facet name="options">
 			
-			<p:inputText id="usuario" style="margin-right:10px; width: 80px;" placeholder="Usuário..." />
-			<p:inputText id="senha" style="margin-right:10px; width: 80px;" placeholder="Senha..." />
-			<p:commandButton type="button" style="width: auto;" value="Sign In" icon="ui-icon-search" />
-			
 			<p:inputText style="margin-right:10px" placeholder="Pesquisar..." />
-			<p:commandButton type="button" value="Procurar" icon="ui-icon-search" />
+			<p:commandButton type="button" value="Procurar" icon="ui-icon-circle-zoomin"/>
 			
+			
+			<p:inputText id="usuario" style="margin-right:10px; width: 100px;" placeholder="Usuário..." />
+			<p:inputText id="senha" style="margin-right:10px; width: 100px;" placeholder="Senha..." />
+			<p:commandButton type="button" style="width: auto;" value="Sign In" icon="ui-icon-circle-arrow-e" />
 		</f:facet>
 	</p:menubar>
 
