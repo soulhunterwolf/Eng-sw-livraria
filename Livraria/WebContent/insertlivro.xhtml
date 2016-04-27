@@ -21,22 +21,22 @@
 		<p:panelGrid columns="2" layout="grid">
 
 			<p:outputLabel for="isbn" value="ISBN: " />
-			<p:inputText id="isbn" />
+			<p:inputText id="isbn" style="width: 50px;"/>
 
 			<p:outputLabel for="titulo" value="Título: " />
-			<p:inputText id="titulo" />
+			<p:inputText id="titulo" style="width: 80px;"/>
 
 			<p:outputLabel for="autores" value="Autores: " />
 			<p:inputText id="autores" />
 
 			<p:outputLabel for="editora" value="Editora: " />
-			<p:inputText id="editora" />
+			<p:inputText id="editora" style="width: 90px;"/>
 
 			<p:outputLabel for="resumo" value="Resumo: " />
-			<p:inputTextarea id="resumo" readonly="true/" />
+			<p:inputTextarea id="resumo" cols="50" rows="5"/>
 
 			<p:outputLabel for="sumario" value="Sumário: " />
-			<p:inputText id="sumario" />
+			<p:inputTextarea id="sumario" cols="50" rows="5"/>
 
 			<p:outputLabel for="formato" value="Formato: " />
 			<p:selectOneMenu id="formato">
@@ -44,15 +44,20 @@
 			</p:selectOneMenu>
 
 			<p:outputLabel for="numPaginas" value="Número de páginas: " />
-			<p:inputText id="numPaginas" />
+			<p:inputText id="numPaginas" style="width: 30px;" />
 
 			<p:outputLabel for="dataPublicacao" value="Data de publicação: " />
 			<p:calendar id="dataPublicacao" effect="fold" mask="true"
-				pattern="dd/MM/yyyy" >
+				pattern="dd/MM/yyyy" style="width: 40px"
+				showOn="button" >
 			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="pt_BR"/>
 			</p:calendar>
-
+			
 		</p:panelGrid>
+			<br/>
+			<p:commandButton id="inserir" value="Inserir livro" />
+			<p:commandButton id="cancelar" value="Cancelar"/>
+		
 	</h:form>
 	<hr/>
 </div>
