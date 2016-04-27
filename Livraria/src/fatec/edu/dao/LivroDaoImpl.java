@@ -66,35 +66,86 @@ public class LivroDaoImpl implements ILivroDao {
 			listaLivros = qry.getResultList();
 			em.close();
 		} catch (Exception e) {
-		
+
 			e.printStackTrace();
-		}		
+		}
 		return listaLivros;
 	}
 
 	@Override
 	public List<Livro> pesquisaPorTitulo(String titulo) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Livro> listaLivrosPorTitulo = new ArrayList<Livro>();
+
+		try {
+			EntityManager em = JPAUtil.getInstance().getEMF().createEntityManager();
+			String sql = "SELEC l FROM Livro l WHERE l.titulo = :titulo";
+			TypedQuery<Livro> qry = em.createQuery(sql, Livro.class);
+			qry.setParameter("titulo", titulo);
+			listaLivrosPorTitulo = qry.getResultList();
+			em.close();
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return listaLivrosPorTitulo;
 	}
 
 	@Override
 	public List<Livro> pesquisaPorAutor(String autor) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Livro> listaLivrosPorAutor = new ArrayList<Livro>();
+
+		try {
+			EntityManager em = JPAUtil.getInstance().getEMF().createEntityManager();
+			String sql = "SELEC l FROM Livro l WHERE l.autor = :autor";
+			TypedQuery<Livro> qry = em.createQuery(sql, Livro.class);
+			qry.setParameter("autor", autor);
+			listaLivrosPorAutor = qry.getResultList();
+			em.close();
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return listaLivrosPorAutor;
 	}
 
 	@Override
 	public List<Livro> pesquisaPorEditora(String editora) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Livro> listaLivrosPorEditora = new ArrayList<Livro>();
+
+		try {
+			EntityManager em = JPAUtil.getInstance().getEMF().createEntityManager();
+			String sql = "SELEC l FROM Livro l WHERE l.editora = :editora";
+			TypedQuery<Livro> qry = em.createQuery(sql, Livro.class);
+			qry.setParameter("editora", editora);
+			listaLivrosPorEditora = qry.getResultList();
+			em.close();
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return listaLivrosPorEditora;
 	}
 
 	@Override
 	public List<Livro> pesquisaPorCategoria(String categoria) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Livro> listaLivrosPorCategoria = new ArrayList<Livro>();
+
+		try {
+			EntityManager em = JPAUtil.getInstance().getEMF().createEntityManager();
+			String sql = "SELEC l FROM Livro l WHERE l.categoria = :categoria";
+			TypedQuery<Livro> qry = em.createQuery(sql, Livro.class);
+			qry.setParameter("categoria", categoria);
+			listaLivrosPorCategoria = qry.getResultList();
+			em.close();
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return listaLivrosPorCategoria;
 	}
 
 }
-
