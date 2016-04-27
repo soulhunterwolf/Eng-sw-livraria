@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+</h:head>
+<h:body>
+
+	<p:menubar>
+
+		<p:submenu label="Inserir" icon="ui-icon-contact">
+			<p:menuitem value="Livro" url="#" />
+			<p:menuitem value="Autor" url="#" />
+		</p:submenu>
+
+
+		<p:submenu label="Alterar">
+			<p:menuitem value="Livro" url="#" />
+			<p:menuitem value="Autor" url="#" />
+		</p:submenu>
+
+		<p:submenu label="Remover">
+			<p:menuitem value="Livro" url="#" />
+			<p:menuitem value="Autor" url="#" />
+		</p:submenu>
+		
+		<p:submenu label="Procurar">
+			<p:menuitem value="Livro" url="#" />
+			<p:menuitem value="Autor" url="#" />
+		</p:submenu>
+
+		<f:facet name="options">
+			
+			<p:inputText id="usuario" style="margin-right:10px; width: 80px;" placeholder="Usuário..." />
+			<p:inputText id="senha" style="margin-right:10px; width: 80px;" placeholder="Senha..." />
+			<p:commandButton type="button" style="width: auto;" value="Sign In" icon="ui-icon-search" />
+			
+			<p:inputText style="margin-right:10px" placeholder="Pesquisar..." />
+			<p:commandButton type="button" value="Procurar" icon="ui-icon-search" />
+			
+		</f:facet>
+	</p:menubar>
+
+</h:body>
+</html>

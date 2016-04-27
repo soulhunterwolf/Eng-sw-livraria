@@ -1,0 +1,21 @@
+body{
+	background-color: #DCDCDC;
+}
+
+.body{
+	background-color: #DCDCDC;
+}
+
+.title{
+	font-family: Arial, Helvetica, sans-serif;
+	color: #808080;
+}
+
+.footer{
+	text-align: center;
+	font-family: Arial, Helvetica, sans-serif;
+	position: fixed;
+	background-color: #2F4F4F;
+	width: 100%;
+	color: #808080;
+}

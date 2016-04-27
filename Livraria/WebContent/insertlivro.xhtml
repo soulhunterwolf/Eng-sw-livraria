@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	
+	<title>Livraria Virtual - Inserir Livro</title>
+</h:head>
+<h:body>
+<div class="body">
+	<h:form>
+		<ui:include src="menu.xhtml"/>
+		<hr/>
+		<h2 class="title">Inserir livro</h2>
+		<p:panelGrid columns="2" layout="grid">
+
+			<p:outputLabel for="isbn" value="ISBN: " />
+			<p:inputText id="isbn" />
+
+			<p:outputLabel for="titulo" value="Título: " />
+			<p:inputText id="titulo" />
+
+			<p:outputLabel for="autores" value="Autores: " />
+			<p:inputText id="autores" />
+
+			<p:outputLabel for="editora" value="Editora: " />
+			<p:inputText id="editora" />
+
+			<p:outputLabel for="resumo" value="Resumo: " />
+			<p:inputTextarea id="resumo" readonly="true/" />
+
+			<p:outputLabel for="sumario" value="Sumário: " />
+			<p:inputText id="sumario" />
+
+			<p:outputLabel for="formato" value="Formato: " />
+			<p:selectOneMenu id="formato">
+				<f:selectItem itemLabel="Capa dura" itemValue="" />
+			</p:selectOneMenu>
+
+			<p:outputLabel for="numPaginas" value="Número de páginas: " />
+			<p:inputText id="numPaginas" />
+
+			<p:outputLabel for="dataPublicacao" value="Data de publicação: " />
+			<p:calendar id="dataPublicacao" effect="fold" mask="true"
+				pattern="dd/MM/yyyy" >
+			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="pt_BR"/>
+			</p:calendar>
+
+		</p:panelGrid>
+	</h:form>
+	<hr/>
+</div>
+<ui:include src="footer.xhtml"/>
+</h:body>
+</html>
