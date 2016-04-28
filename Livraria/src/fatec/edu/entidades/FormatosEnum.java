@@ -1,19 +1,12 @@
 package fatec.edu.entidades;
 
 public enum FormatosEnum {
-	//Opções da Enum com o dígito 
-	CAPADURA(1),
-	CAPAMOLE(2); 
+	CAPA_DURA,
+	CAPA_MOLE;
 	
-	//Indicador do índice da opção
-	private final int valor;
+	private String label;
 	
-	//Construtor
-	FormatosEnum(int opcao){
-		valor = opcao;
-	}
-	
-	public int getValor(){
-		return valor;
+	public String getLabel(){
+		return label;
 	}
 }

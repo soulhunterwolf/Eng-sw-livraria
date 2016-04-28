@@ -28,10 +28,10 @@ public class Livro {
 	private String editora;
 	private String resumoLivro;
 	private String sumario;
-	private FormatosEnum formato;
+	private String formato;
 	private int numPaginas;
 	private Date dataPublicacao;
-	private String titutlo;
+	private String titulo;
 
 	public int getIsbn() {
 		return isbn;
@@ -77,11 +77,11 @@ public class Livro {
 	}
 
 	@Column(name = "formato")
-	public FormatosEnum getFormato() {
+	public String getFormato() {
 		return formato;
 	}
 
-	public void setFormato(FormatosEnum formato) {
+	public void setFormato(String formato) {
 		this.formato = formato;
 	}
 
@@ -104,12 +104,12 @@ public class Livro {
 	}
 
 	@Column(name = "titulo")
-	public String getTitutlo() {
-		return titutlo;
+	public String getTitulo() {
+		return titulo;
 	}
 
-	public void setTitutlo(String titutlo) {
-		this.titutlo = titutlo;
+	public void settitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 }

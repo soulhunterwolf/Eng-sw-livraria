@@ -18,45 +18,46 @@
 		<ui:include src="menu.xhtml"/>
 		<hr/>
 		<h2 class="title">Inserir livro</h2>
+		<p:growl id="messages"/>
 		<p:panelGrid columns="2" layout="grid">
 
 			<p:outputLabel for="isbn" value="ISBN: " />
-			<p:inputText id="isbn" style="width: 50px;"/>
+			<p:inputText id="isbn" style="width: 50px;" value="#{livroMB.livroAtual.isbn}"/>
 
 			<p:outputLabel for="titulo" value="Título: " />
-			<p:inputText id="titulo" style="width: 80px;"/>
+			<p:inputText id="titulo" style="width: 80px;" value="#{livroMB.livroAtual.titulo}"/>
 
 			<p:outputLabel for="autores" value="Autores: " />
-			<p:inputText id="autores" />
+			<p:inputText id="autores" value="#{livroMB.nomeAutor}"/>
 
 			<p:outputLabel for="editora" value="Editora: " />
-			<p:inputText id="editora" style="width: 90px;"/>
+			<p:inputText id="editora" style="width: 90px;" value="#{livroMB.livroAtual.editora}"/>
 
 			<p:outputLabel for="resumo" value="Resumo: " />
-			<p:inputTextarea id="resumo" cols="50" rows="5"/>
+			<p:inputTextarea id="resumo" cols="50" rows="5" value="#{livroMB.livroAtual.resumoLivro}"/>
 
 			<p:outputLabel for="sumario" value="Sumário: " />
-			<p:inputTextarea id="sumario" cols="50" rows="5"/>
+			<p:inputTextarea id="sumario" cols="50" rows="5" value="#{livroMB.livroAtual.sumario}"/>
 
 			<p:outputLabel for="formato" value="Formato: " />
-			<p:selectOneMenu id="formato">
-				<f:selectItem itemLabel="Capa dura" itemValue="" />
+			<p:selectOneMenu id="formato" value="#{livroMB.livroAtual.formato}">
+				<f:selectItems value="#{livroAtual.formatos}"/>
 			</p:selectOneMenu>
 
 			<p:outputLabel for="numPaginas" value="Número de páginas: " />
-			<p:inputText id="numPaginas" style="width: 30px;" />
+			<p:inputText id="numPaginas" style="width: 30px;" value="#{livroMB.livroAtual.numPaginas}"/>
 
 			<p:outputLabel for="dataPublicacao" value="Data de publicação: " />
 			<p:calendar id="dataPublicacao" effect="fold" mask="true"
 				pattern="dd/MM/yyyy" style="width: 40px"
-				showOn="button" >
+				showOn="button" value="#{livroMB.livroAtual.dataPublicacao}">
 			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="pt_BR"/>
 			</p:calendar>
 			
 		</p:panelGrid>
 			<br/>
-			<p:commandButton id="inserir" value="Inserir livro" />
-			<p:commandButton id="cancelar" value="Cancelar"/>
+			<p:commandButton id="inserir" value="Inserir livro" action="#{livroMB.adicionar(livroAtual)}" ajax="false"/>
+			<p:commandButton id="cancelar" value="Cancelar" action="insertlivro.xhtml"/>
 		
 	</h:form>
 	<hr/>
