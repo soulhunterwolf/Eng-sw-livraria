@@ -8,6 +8,7 @@ import javax.persistence.TypedQuery;
 
 import fatec.edu.dao.ILivroDao;
 import fatec.edu.dao.JPAUtil;
+import fatec.edu.entidades.Autor;
 import fatec.edu.entidades.Livro;
 
 public class LivroDaoImpl implements ILivroDao {
@@ -63,7 +64,7 @@ public class LivroDaoImpl implements ILivroDao {
 		listaLivros = new ArrayList<Livro>();
 		try {
 			EntityManager em = JPAUtil.getInstance().getEMF().createEntityManager();
-			String sql = "SELEC l FROM Livro l ";
+			String sql = "select l from Livro l";
 			TypedQuery<Livro> qry = em.createQuery(sql, Livro.class);
 			listaLivros = qry.getResultList();
 			em.close();
@@ -80,7 +81,7 @@ public class LivroDaoImpl implements ILivroDao {
 
 		try {
 			EntityManager em = JPAUtil.getInstance().getEMF().createEntityManager();
-			String sql = "SELEC l FROM Livro l WHERE l.titulo = :titulo";
+			String sql = "SELECT l FROM Livro l WHERE l.titulo = :titulo";
 			TypedQuery<Livro> qry = em.createQuery(sql, Livro.class);
 			qry.setParameter("titulo", titulo);
 			listaLivrosPorTitulo = qry.getResultList();
@@ -92,7 +93,24 @@ public class LivroDaoImpl implements ILivroDao {
 
 		return listaLivrosPorTitulo;
 	}
+	
+	public List<Autor> populaAutor(){
+		List<Autor> listaPopulaAutor = new ArrayList<Autor>();
+		
+		try {
+			EntityManager em = JPAUtil.getInstance().getEMF().createEntityManager();
+			String sql = "SELECT `autor_id` from `livro_autor` inner join `livro` on `livro`.`isbn` = `livro_autor`.`livro_id`";
+			TypedQuery<Autor> qry = em.createQuery(sql, Autor.class);
+			listaPopulaAutor = qry.getResultList();
+			em.close();
+		} catch (Exception e) {
 
+			e.printStackTrace();
+		}
+		
+		return listaPopulaAutor;
+	}
+	
 	@Override
 	public List<Livro> pesquisaPorAutor(String autor) {
 		List<Livro> listaLivrosPorAutor = new ArrayList<Livro>();

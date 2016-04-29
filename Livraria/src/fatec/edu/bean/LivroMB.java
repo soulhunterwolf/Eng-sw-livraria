@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 import fatec.edu.dao.ILivroDao;
 import fatec.edu.entidades.Autor;
@@ -24,11 +26,29 @@ public class LivroMB implements Serializable {
 	private ILivroDao livroDao;
 	private List<Livro> livros;
 	private String nomeAutor;
-
+	private List<SelectItem> descFormato = new ArrayList<SelectItem>();
+	private int codigoFormato;
+	
 	public LivroMB() {
 		livroDao = new LivroDaoImpl();
 		livros = new ArrayList<Livro>();
 		livroAtual = new Livro();
+	}
+
+	public List<SelectItem> getDescFormato() {
+		return descFormato;
+	}
+
+	public void setDescFormato(List<SelectItem> descFormato) {
+		this.descFormato = descFormato;
+	}
+
+	public int getCodigoFormato() {
+		return codigoFormato;
+	}
+
+	public void setCodigoFormato(int codigoFormato) {
+		this.codigoFormato = codigoFormato;
 	}
 
 	public Livro getLivroAtual() {
@@ -63,9 +83,13 @@ public class LivroMB implements Serializable {
 		this.nomeAutor = nomeAutor;
 	}
 	
-	public FormatosEnum[] getFormatos(){
-		return FormatosEnum.values();
+	@PostConstruct
+	public void init(){
+		for(FormatosEnum value : FormatosEnum.values()){
+			this.descFormato.add(new SelectItem(value.getCodigoFormato(),value.getDescFormato()));
+		}
 	}
+	
 	public String adicionar(Livro l) {
 		String msg = "Erro ao adicionar produto";
 		String retorno = "./insertlivro.xhtml";
@@ -76,9 +100,9 @@ public class LivroMB implements Serializable {
 			Autor autor = new Autor();
 			autor.setNome(this.nomeAutor);
 			autores.add(autor);
-
+			livroAtual.setFormato(FormatosEnum.getFormatoBrochuraEnum(this.codigoFormato).toString());
 			this.livroAtual.setAutor(autores);
-
+			
 			livroDao.adicionar(livroAtual);
 			msg = "Livro adicionado com sucesso!";
 			System.out.println("Gravando o livro: " + "\n" + this.livroAtual.getIsbn() + "\n"
@@ -95,6 +119,30 @@ public class LivroMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		fc.addMessage("", new FacesMessage(msg));
 
+		return retorno;
+	}
+	
+	public String pesquisarTodos(){
+		String msg = "Erro ao consultar livro";
+		String retorno = "./pesquisa.xhtml";
+		
+		try {
+			livros = livroDao.pesquisaTodos();
+			msg = "Todos os livros pesquisados!";
+			livros.get(0).getAutor();
+			System.out.println(livros.get(0).getAutor().get(0).getNome());
+			
+			for(Livro livro : livros){
+				System.out.println(livro.toString());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "Erro ao consultar livro";
+		}
+		
+		FacesContext fc = FacesContext.getCurrentInstance();
+		fc.addMessage("", new FacesMessage(msg));
+		
 		return retorno;
 	}
 }

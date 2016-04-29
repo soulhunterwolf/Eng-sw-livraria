@@ -6,10 +6,11 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,10 +21,8 @@ public class Livro {
 	@Id
 	private int isbn;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "livro_autor", joinColumns = @JoinColumn
-	(name = "livro_id", referencedColumnName = "isbn"), 
-	inverseJoinColumns = @JoinColumn(name = "autor_id", referencedColumnName = "nome"))
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch=FetchType.EAGER)
+	@JoinTable(name = "livro_autor", joinColumns = @JoinColumn(name = "livro_id", referencedColumnName = "isbn"), inverseJoinColumns = @JoinColumn(name = "autor_id", referencedColumnName = "nome"))
 	private List<Autor> autor;
 	private String editora;
 	private String resumoLivro;
@@ -33,6 +32,13 @@ public class Livro {
 	private Date dataPublicacao;
 	private String titulo;
 
+	@Override
+	public String toString() {
+		return "ISBN: " + isbn + "\n" + "Editora: " + "\n" + editora + "\n" + "Título: " + titulo + "\n"
+				+ "Resumo livro: " + resumoLivro + "\n" + "Sumário: " + sumario + "\n" + "Formato: " + formato + "\n"
+				+ "Número de páginas" + numPaginas + "\n" + "Data de publicação: " + dataPublicacao + "\r\n";
+	}
+
 	public int getIsbn() {
 		return isbn;
 	}
@@ -41,6 +47,7 @@ public class Livro {
 		this.isbn = isbn;
 	}
 
+	@Column(name = "autor")
 	public List<Autor> getAutor() {
 		return autor;
 	}

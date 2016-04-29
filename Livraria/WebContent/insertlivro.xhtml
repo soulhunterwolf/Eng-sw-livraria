@@ -22,35 +22,35 @@
 		<p:panelGrid columns="2" layout="grid">
 
 			<p:outputLabel for="isbn" value="ISBN: " />
-			<p:inputText id="isbn" style="width: 50px;" value="#{livroMB.livroAtual.isbn}"/>
+			<p:inputText id="isbn" style="width: 80px;" value="#{livroMB.livroAtual.isbn}" placeholder="isbn..." maxlength="13" />
 
 			<p:outputLabel for="titulo" value="Título: " />
-			<p:inputText id="titulo" style="width: 80px;" value="#{livroMB.livroAtual.titulo}"/>
+			<p:inputText id="titulo" style="width: 80px;" value="#{livroMB.livroAtual.titulo}" placeholder="titulo..."/>
 
 			<p:outputLabel for="autores" value="Autores: " />
-			<p:inputText id="autores" value="#{livroMB.nomeAutor}"/>
+			<p:inputText id="autores" value="#{livroMB.nomeAutor}" placeholder="autores..." />
 
 			<p:outputLabel for="editora" value="Editora: " />
-			<p:inputText id="editora" style="width: 90px;" value="#{livroMB.livroAtual.editora}"/>
+			<p:inputText id="editora" style="width: 90px;" value="#{livroMB.livroAtual.editora}" placeholder="editora..." />
 
 			<p:outputLabel for="resumo" value="Resumo: " />
-			<p:inputTextarea id="resumo" cols="50" rows="5" value="#{livroMB.livroAtual.resumoLivro}"/>
+			<p:inputTextarea id="resumo" cols="50" rows="5" value="#{livroMB.livroAtual.resumoLivro}" placeholder="faça um breve resumo do livro..." />
 
 			<p:outputLabel for="sumario" value="Sumário: " />
-			<p:inputTextarea id="sumario" cols="50" rows="5" value="#{livroMB.livroAtual.sumario}"/>
+			<p:inputTextarea id="sumario" cols="50" rows="5" value="#{livroMB.livroAtual.sumario}" placeholder="insira aqui o sumário do livro..." />
 
 			<p:outputLabel for="formato" value="Formato: " />
-			<p:selectOneMenu id="formato" value="#{livroMB.livroAtual.formato}">
-				<f:selectItems value="#{livroAtual.formatos}"/>
+			<p:selectOneMenu id="formato" value="#{livroMB.codigoFormato}">
+				<f:selectItems value="#{livroMB.descFormato}" var="formato"/>
 			</p:selectOneMenu>
 
 			<p:outputLabel for="numPaginas" value="Número de páginas: " />
-			<p:inputText id="numPaginas" style="width: 30px;" value="#{livroMB.livroAtual.numPaginas}"/>
+			<p:inputText id="numPaginas" style="width: 50px;" value="#{livroMB.livroAtual.numPaginas}" placeholder="..." />
 
 			<p:outputLabel for="dataPublicacao" value="Data de publicação: " />
 			<p:calendar id="dataPublicacao" effect="fold" mask="true"
 				pattern="dd/MM/yyyy" style="width: 40px"
-				showOn="button" value="#{livroMB.livroAtual.dataPublicacao}">
+				showOn="button" value="#{livroMB.livroAtual.dataPublicacao}" placeholder="dd/MM/yyyy" >
 			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="pt_BR"/>
 			</p:calendar>
 			
