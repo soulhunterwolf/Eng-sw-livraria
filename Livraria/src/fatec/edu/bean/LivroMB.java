@@ -17,7 +17,7 @@ import fatec.edu.entidades.FormatosEnum;
 import fatec.edu.entidades.Livro;
 import fatec.edu.impl.LivroDaoImpl;
 
-@ManagedBean(name ="livroMB")
+@ManagedBean(name = "livroMB")
 @SessionScoped
 public class LivroMB implements Serializable {
 
@@ -28,7 +28,7 @@ public class LivroMB implements Serializable {
 	private String nomeAutor;
 	private List<SelectItem> descFormato = new ArrayList<SelectItem>();
 	private int codigoFormato;
-	
+
 	public LivroMB() {
 		livroDao = new LivroDaoImpl();
 		livros = new ArrayList<Livro>();
@@ -82,14 +82,14 @@ public class LivroMB implements Serializable {
 	public void setNomeAutor(String nomeAutor) {
 		this.nomeAutor = nomeAutor;
 	}
-	
+
 	@PostConstruct
-	public void init(){
-		for(FormatosEnum value : FormatosEnum.values()){
-			this.descFormato.add(new SelectItem(value.getCodigoFormato(),value.getDescFormato()));
+	public void init() {
+		for (FormatosEnum value : FormatosEnum.values()) {
+			this.descFormato.add(new SelectItem(value.getCodigoFormato(), value.getDescFormato()));
 		}
 	}
-	
+
 	public String adicionar(Livro l) {
 		String msg = "Erro ao adicionar produto";
 		String retorno = "./insertlivro.xhtml";
@@ -102,16 +102,13 @@ public class LivroMB implements Serializable {
 			autores.add(autor);
 			livroAtual.setFormato(FormatosEnum.getFormatoBrochuraEnum(this.codigoFormato).toString());
 			this.livroAtual.setAutor(autores);
-			
 			livroDao.adicionar(livroAtual);
 			msg = "Livro adicionado com sucesso!";
-			System.out.println("Gravando o livro: " + "\n" + this.livroAtual.getIsbn() + "\n"
-					+ this.livroAtual.getTitulo() + "\n" + this.livroAtual.getAutor() + "\n"
-					+ this.livroAtual.getEditora() + "\n" + this.livroAtual.getResumoLivro() + "\n"
-					+ this.livroAtual.getSumario() + "\n" + this.livroAtual.getFormato() + "\n"
-					+ this.livroAtual.getNumPaginas() + "\n" + this.livroAtual.getDataPublicacao());
-			livroAtual = new Livro();
+			System.out.println("Gravando o livro: ");
+			System.out.println("Autores: " + this.livroAtual.getAutor().toString() + "\n");
+			System.out.println(livroAtual.toString());
 			nomeAutor = "";
+			livroAtual = new Livro();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -121,28 +118,45 @@ public class LivroMB implements Serializable {
 
 		return retorno;
 	}
-	
-	public String pesquisarTodos(){
+
+	public String pesquisarTodos() {
 		String msg = "Erro ao consultar livro";
 		String retorno = "./pesquisa.xhtml";
-		
+
 		try {
 			livros = livroDao.pesquisaTodos();
 			msg = "Todos os livros pesquisados!";
 			livros.get(0).getAutor();
 			System.out.println(livros.get(0).getAutor().get(0).getNome());
-			
-			for(Livro livro : livros){
+
+			for (Livro livro : livros) {
 				System.out.println(livro.toString());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg = "Erro ao consultar livro";
 		}
-		
+
 		FacesContext fc = FacesContext.getCurrentInstance();
 		fc.addMessage("", new FacesMessage(msg));
-		
+
 		return retorno;
+	}
+
+	public void pesquisarAc() {
+		String msg = "Erro ao consultar livro";
+
+		try {
+			livros = livroDao.pesquisaTodos();
+			msg = "Todos os livros pesquisados!";
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "Erro ao consultar livros";
+		}
+
+		FacesContext fc = FacesContext.getCurrentInstance();
+		fc.addMessage("", new FacesMessage(msg));
+
 	}
 }
