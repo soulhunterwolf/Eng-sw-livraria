@@ -1,5 +1,6 @@
 package fatec.edu.entidades;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -34,9 +35,12 @@ public class Livro {
 
 	@Override
 	public String toString() {
+		SimpleDateFormat sdt = new SimpleDateFormat("dd/MM/yyyy");
+		String dataPublicacaoFormatada = sdt.format(dataPublicacao);
+		
 		return "ISBN: " + isbn + "\n" + "Editora: " + "\n" + editora + "\n" + "Título: " + titulo + "\n"
 				+ "Resumo livro: " + resumoLivro + "\n" + "Sumário: " + sumario + "\n" + "Formato: " + formato + "\n"
-				+ "Número de páginas" + numPaginas + "\n" + "Data de publicação: " + dataPublicacao + "\r\n";
+				+ "Número de páginas" + numPaginas + "\n" + "Data de publicação: " + dataPublicacaoFormatada + "\r\n";
 	}
 
 	public int getIsbn() {
