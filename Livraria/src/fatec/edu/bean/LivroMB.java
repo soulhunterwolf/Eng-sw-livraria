@@ -28,11 +28,21 @@ public class LivroMB implements Serializable {
 	private String nomeAutor;
 	private List<SelectItem> descFormato = new ArrayList<SelectItem>();
 	private int codigoFormato;
+	private String tituloFiltro;
 
 	public LivroMB() {
 		livroDao = new LivroDaoImpl();
 		livros = new ArrayList<Livro>();
 		livroAtual = new Livro();
+		tituloFiltro = "";
+	}
+
+	public String getTituloFiltro() {
+		return tituloFiltro;
+	}
+
+	public void setTituloFiltro(String tituloFiltro) {
+		this.tituloFiltro = tituloFiltro;
 	}
 
 	public List<SelectItem> getDescFormato() {
@@ -98,16 +108,20 @@ public class LivroMB implements Serializable {
 
 			List<Autor> autores = new ArrayList<>();
 			Autor autor = new Autor();
-			autor.setNome(this.nomeAutor);
-			autores.add(autor);
+			
+			for(int i = 0; i == autores.size(); i++){
+				autor.setNome(this.nomeAutor);
+				autores.add(autor);
+				this.nomeAutor = "";
+			}
+			
 			livroAtual.setFormato(FormatosEnum.getFormatoBrochuraEnum(this.codigoFormato).toString());
 			this.livroAtual.setAutor(autores);
 			livroDao.adicionar(livroAtual);
 			msg = "Livro adicionado com sucesso!";
 			System.out.println("Gravando o livro: ");
-			System.out.println("Autores: " + this.livroAtual.getAutor().toString() + "\n");
+			System.out.println("Autores: " + "\n" + this.livroAtual.getAutor().toString() + "\n");
 			System.out.println(livroAtual.toString());
-			nomeAutor = "";
 			livroAtual = new Livro();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -119,31 +133,76 @@ public class LivroMB implements Serializable {
 		return retorno;
 	}
 
-	public String pesquisarTodos() {
+
+	public void pesquisarTodos() {
 		String msg = "Erro ao consultar livro";
-		String retorno = "./pesquisa.xhtml";
 
 		try {
 			livros = livroDao.pesquisaTodos();
 			msg = "Todos os livros pesquisados!";
-			livros.get(0).getAutor();
-			System.out.println(livros.get(0).getAutor().get(0).getNome());
-
-			for (Livro livro : livros) {
-				System.out.println(livro.toString());
-			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
-			msg = "Erro ao consultar livro";
+			msg = "Erro ao consultar livros";
 		}
 
 		FacesContext fc = FacesContext.getCurrentInstance();
 		fc.addMessage("", new FacesMessage(msg));
 
-		return retorno;
 	}
+	
+	public void pesquisarPorTitulo(String titulo) {
+		String msg = "Erro ao consultar livro";
 
-	public void pesquisarAc() {
+		try {
+			livros = livroDao.pesquisaPorTitulo(titulo);
+			msg = "Todos os livros pesquisados!";
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "Erro ao consultar livros";
+		}
+
+		FacesContext fc = FacesContext.getCurrentInstance();
+		fc.addMessage("", new FacesMessage(msg));
+
+	}
+	
+	public void pesquisarPorAutor() {
+		String msg = "Erro ao consultar livro";
+
+		try {
+			livros = livroDao.pesquisaTodos();
+			msg = "Todos os livros pesquisados!";
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "Erro ao consultar livros";
+		}
+
+		FacesContext fc = FacesContext.getCurrentInstance();
+		fc.addMessage("", new FacesMessage(msg));
+
+	}
+	
+	public void pesquisarPorEditora() {
+		String msg = "Erro ao consultar livro";
+
+		try {
+			livros = livroDao.pesquisaTodos();
+			msg = "Todos os livros pesquisados!";
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "Erro ao consultar livros";
+		}
+
+		FacesContext fc = FacesContext.getCurrentInstance();
+		fc.addMessage("", new FacesMessage(msg));
+
+	}
+	
+	public void pesquisarPorCategoria() {
 		String msg = "Erro ao consultar livro";
 
 		try {
