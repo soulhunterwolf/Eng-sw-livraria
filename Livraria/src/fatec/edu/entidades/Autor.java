@@ -81,7 +81,12 @@ public class Autor {
 	public void addAutor() {
 
 	}
-
+	
+	@Override
+	public String toString(){
+		return "Nome(s) do(s) autor(es): " + nome;
+	}
+	
 	public static int calcIdade(Date dataNascimento, Date dataAtualOuMorte) {
 		int idade = 0;
 		return idade;
