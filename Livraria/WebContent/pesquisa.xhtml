@@ -16,11 +16,17 @@
 			<p:growl id="messages" />
 
 			<ui:include src="menu.xhtml" />
-
+			<br />
 			<p:commandButton value="Pesquisar todos" ajax="false"
-				action="#{livroMB.pesquisarAc}" />
-
-			<p:accordionPanel value="#{livroMB.livros}" var="livro" >
+				action="#{livroMB.pesquisarTodos}" style="font-size: 14px;"/>
+			
+			<br />
+			<p:inputText id="filtroTitulo" value="#{livroMB.tituloFiltro}"/>
+			<p:commandButton value="Pesquisar por título" ajax="false"
+				action="#{livroMB.pesquisarPorTitulo(livroMB.tituloFiltro)}" style="font-size: 14px;"/>
+				
+			<br />
+			<p:accordionPanel value="#{livroMB.livros}" var="livro">
 				<p:tab title="Livro: - #{livro.titulo}">
 
 					<h:panelGrid columns="2" cellpadding="2">
@@ -31,7 +37,7 @@
 
 						<h:outputText value="Editora: " style="font-weight: bold" />
 						<h:outputText value="#{livro.editora}" />
-						
+
 						<h:outputText value="Autores: " style="font-weight: bold" />
 						<h:outputText value="#{livro.autor}" />
 
@@ -50,8 +56,8 @@
 
 						<h:outputText value="Data de publicação: "
 							style="font-weight: bold" />
-						<h:outputText value="#{livro.dataPublicacao}" >
-							 <f:convertDateTime pattern="dd/MM/yyyy" />
+						<h:outputText value="#{livro.dataPublicacao}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
 						</h:outputText>
 
 					</h:panelGrid>
@@ -61,6 +67,7 @@
 
 		</h:form>
 	</div>
+	<br />
 	<ui:include src="footer.xhtml" />
 </h:body>
 </html>

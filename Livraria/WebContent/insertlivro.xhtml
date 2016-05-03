@@ -7,61 +7,98 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	
-	<link rel="stylesheet" type="text/css" href="css/style.css" />
-	
+
 	<title>Livraria Virtual - Inserir Livro</title>
 </h:head>
 <h:body>
-<div class="body">
-	<h:form>
-		<ui:include src="menu.xhtml"/>
-		<hr/>
-		<h2 class="title">Inserir livro</h2>
-		<p:growl id="messages"/>
-		<p:panelGrid columns="2" layout="grid">
+	<div class="body">
+		<h:form>
+			<ui:include src="menu.xhtml" />
+			<hr />
+			<h2 class="title" align="center">Inserir livro</h2>
+			<p:growl id="messages" />
+			<div align="center">
+				<p:panelGrid columns="1">
+					<p:row>
+						<p:outputLabel for="isbn" value="ISBN: " />
+						<p:inputText id="isbn" style="width: 80px;"
+							value="#{livroMB.livroAtual.isbn}" placeholder="isbn..."
+							maxlength="13" />
+					</p:row>
+					<p:row>
+						<p:outputLabel for="titulo" value="Título: " />
+						<p:inputText id="titulo" style="width: 80px;"
+							value="#{livroMB.livroAtual.titulo}" placeholder="titulo..." />
+					</p:row>
+					
+					<p:row>
+						<p:outputLabel for="categoria" value="Categoria: " />
+						<p:inputText id="categoria" style="width: 80px;"
+							value="#{livroMB.livroAtual.categoria}" placeholder="categoria..." />
+					</p:row>
 
-			<p:outputLabel for="isbn" value="ISBN: " />
-			<p:inputText id="isbn" style="width: 80px;" value="#{livroMB.livroAtual.isbn}" placeholder="isbn..." maxlength="13" />
+					<p:row>
+						<p:outputLabel for="autores" value="Autores: " />
+						<div id="div_autores">
+							<p:inputText id="autores" value="#{livroMB.nomeAutor}"
+								placeholder="autores..." />
+						</div>
+						<p:commandButton value="Adicionar novo autor" style="font-size: 12px;" />
+					</p:row>
 
-			<p:outputLabel for="titulo" value="Título: " />
-			<p:inputText id="titulo" style="width: 80px;" value="#{livroMB.livroAtual.titulo}" placeholder="titulo..."/>
+					<p:row>
+						<p:outputLabel for="editora" value="Editora: " />
+						<p:inputText id="editora" style="width: 90px;"
+							value="#{livroMB.livroAtual.editora}" placeholder="editora..." />
+					</p:row>
 
-			<p:outputLabel for="autores" value="Autores: " />
-			<p:inputText id="autores" value="#{livroMB.nomeAutor}" placeholder="autores..." />
+					<p:row>
+						<p:outputLabel for="resumo" value="Resumo: " />
+						<p:inputTextarea id="resumo" cols="50" rows="5"
+							value="#{livroMB.livroAtual.resumoLivro}"
+							placeholder="faça um breve resumo do livro..." />
+					</p:row>
 
-			<p:outputLabel for="editora" value="Editora: " />
-			<p:inputText id="editora" style="width: 90px;" value="#{livroMB.livroAtual.editora}" placeholder="editora..." />
+					<p:row>
+						<p:outputLabel for="sumario" value="Sumário: " />
+						<p:inputTextarea id="sumario" cols="50" rows="5"
+							value="#{livroMB.livroAtual.sumario}"
+							placeholder="insira aqui o sumário do livro..." />
+					</p:row>
 
-			<p:outputLabel for="resumo" value="Resumo: " />
-			<p:inputTextarea id="resumo" cols="50" rows="5" value="#{livroMB.livroAtual.resumoLivro}" placeholder="faça um breve resumo do livro..." />
+					<p:row>
+						<p:outputLabel for="formato" value="Formato: " />
+						<p:selectOneMenu id="formato" value="#{livroMB.codigoFormato}">
+							<f:selectItems value="#{livroMB.descFormato}" var="formato" />
+						</p:selectOneMenu>
+					</p:row>
 
-			<p:outputLabel for="sumario" value="Sumário: " />
-			<p:inputTextarea id="sumario" cols="50" rows="5" value="#{livroMB.livroAtual.sumario}" placeholder="insira aqui o sumário do livro..." />
+					<p:row>
+						<p:outputLabel for="numPaginas" value="Número de páginas: " />
+						<p:inputText id="numPaginas" style="width: 50px;"
+							value="#{livroMB.livroAtual.numPaginas}" placeholder="..." />
+					</p:row>
 
-			<p:outputLabel for="formato" value="Formato: " />
-			<p:selectOneMenu id="formato" value="#{livroMB.codigoFormato}">
-				<f:selectItems value="#{livroMB.descFormato}" var="formato"/>
-			</p:selectOneMenu>
+					<p:row>
+						<p:outputLabel for="dataPublicacao" value="Data de publicação: " />
+						<p:calendar id="dataPublicacao" effect="fold" mask="true"
+							pattern="dd/MM/yyyy" style="width: 40px" showOn="button"
+							value="#{livroMB.livroAtual.dataPublicacao}"
+							placeholder="dd/MM/yyyy">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="pt_BR" />
+						</p:calendar>
+					</p:row>
+				</p:panelGrid>
+				<br />
+				<p:commandButton id="inserir" value="Inserir livro"
+					action="#{livroMB.adicionar(livroAtual)}" ajax="false" />
+				<p:commandButton id="cancelar" value="Cancelar"
+					action="insertlivro.xhtml" />
+			</div>
 
-			<p:outputLabel for="numPaginas" value="Número de páginas: " />
-			<p:inputText id="numPaginas" style="width: 50px;" value="#{livroMB.livroAtual.numPaginas}" placeholder="..." />
-
-			<p:outputLabel for="dataPublicacao" value="Data de publicação: " />
-			<p:calendar id="dataPublicacao" effect="fold" mask="true"
-				pattern="dd/MM/yyyy" style="width: 40px"
-				showOn="button" value="#{livroMB.livroAtual.dataPublicacao}" placeholder="dd/MM/yyyy" >
-			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="pt_BR"/>
-			</p:calendar>
-			
-		</p:panelGrid>
-			<br/>
-			<p:commandButton id="inserir" value="Inserir livro" action="#{livroMB.adicionar(livroAtual)}" ajax="false"/>
-			<p:commandButton id="cancelar" value="Cancelar" action="insertlivro.xhtml"/>
-		
-	</h:form>
-	<hr/>
-</div>
-<ui:include src="footer.xhtml"/>
+		</h:form>
+		<hr />
+	</div>
+	<ui:include src="footer.xhtml" />
 </h:body>
 </html>
