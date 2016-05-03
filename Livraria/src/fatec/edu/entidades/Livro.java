@@ -26,6 +26,7 @@ public class Livro {
 	@JoinTable(name = "livro_autor", joinColumns = @JoinColumn(name = "livro_id", referencedColumnName = "isbn"), inverseJoinColumns = @JoinColumn(name = "autor_id", referencedColumnName = "nome"))
 	private List<Autor> autor;
 	private String editora;
+	private String categoria;
 	private String resumoLivro;
 	private String sumario;
 	private String formato;
@@ -122,5 +123,14 @@ public class Livro {
 	public void settitulo(String titulo) {
 		this.titulo = titulo;
 	}
+	
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
 
 }
