@@ -13,12 +13,52 @@
 <h:body>
 	<div class="body">
 		<h:form>
-		<p:growl id="messages"/>
-		
+			<p:growl id="messages" />
+
 			<ui:include src="menu.xhtml" />
-			
-			<p:commandButton value="Pesquisar todos" ajax="false" action="#{livroMB.pesquisarTodos}"/>
-			
+
+			<p:commandButton value="Pesquisar todos" ajax="false"
+				action="#{livroMB.pesquisarAc}" />
+
+			<p:accordionPanel value="#{livroMB.livros}" var="livro" >
+				<p:tab title="Livro: - #{livro.titulo}">
+
+					<h:panelGrid columns="2" cellpadding="2">
+
+						<f:facet name="header">
+							<p:outputLabel value="Título: - #{livro.titulo}" />
+						</f:facet>
+
+						<h:outputText value="Editora: " style="font-weight: bold" />
+						<h:outputText value="#{livro.editora}" />
+						
+						<h:outputText value="Autores: " style="font-weight: bold" />
+						<h:outputText value="#{livro.autor}" />
+
+						<h:outputText value="Resumo: " style="font-weight: bold" />
+						<h:outputText value="#{livro.resumoLivro}" />
+
+						<h:outputText value="Sumário: " style="font-weight: bold" />
+						<h:outputText value="#{livro.sumario}" />
+
+						<h:outputText value="Formato: " style="font-weight: bold" />
+						<h:outputText value="#{livro.formato}" />
+
+						<h:outputText value="Número de páginas: "
+							style="font-weight: bold" />
+						<h:outputText value="#{livro.numPaginas}" />
+
+						<h:outputText value="Data de publicação: "
+							style="font-weight: bold" />
+						<h:outputText value="#{livro.dataPublicacao}" >
+							 <f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+
+					</h:panelGrid>
+
+				</p:tab>
+			</p:accordionPanel>
+
 		</h:form>
 	</div>
 	<ui:include src="footer.xhtml" />
