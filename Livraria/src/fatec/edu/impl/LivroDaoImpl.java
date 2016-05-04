@@ -168,4 +168,24 @@ public class LivroDaoImpl implements ILivroDao {
 		return listaLivrosPorCategoria;
 	}
 
+	@Override
+	public List<Livro> pesquisaPorIsbn(int isbn) {
+		
+		List<Livro> listaLivrosPorIsbn = new ArrayList<Livro>();
+
+		try {
+			EntityManager em = JPAUtil.getInstance().getEMF().createEntityManager();
+			String sql = "SELECT l FROM Livro l WHERE l.isbn = :isbn";
+			TypedQuery<Livro> qry = em.createQuery(sql, Livro.class);
+			qry.setParameter("isbn", isbn);
+			listaLivrosPorIsbn = qry.getResultList();
+			em.close();
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return listaLivrosPorIsbn;
+	}
+
 }
