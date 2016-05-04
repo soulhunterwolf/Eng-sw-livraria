@@ -29,12 +29,21 @@ public class LivroMB implements Serializable {
 	private List<SelectItem> descFormato = new ArrayList<SelectItem>();
 	private int codigoFormato;
 	private String tituloFiltro;
+	private int isbnFiltro;
 
 	public LivroMB() {
 		livroDao = new LivroDaoImpl();
 		livros = new ArrayList<Livro>();
 		livroAtual = new Livro();
 		tituloFiltro = "";
+	}
+
+	public int getIsbnFiltro() {
+		return isbnFiltro;
+	}
+
+	public void setIsbnFiltro(int isbnFiltro) {
+		this.isbnFiltro = isbnFiltro;
 	}
 
 	public String getTituloFiltro() {
@@ -99,7 +108,11 @@ public class LivroMB implements Serializable {
 			this.descFormato.add(new SelectItem(value.getCodigoFormato(), value.getDescFormato()));
 		}
 	}
-
+	
+	public String cancelar(){
+		return "index.xhtml";
+	}
+	
 	public String adicionar(Livro l) {
 		String msg = "Erro ao adicionar produto";
 		String retorno = "./insertlivro.xhtml";
@@ -132,7 +145,31 @@ public class LivroMB implements Serializable {
 
 		return retorno;
 	}
+	
+	public String removerLivro(int isbn){
+		String retorno = "removelivro.xhtml";
+		String msg = "Livro removido com sucesso!";
+		
+		try {
+			livroDao.remover(isbn);
+			livros = new ArrayList<Livro>();
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "Erro ao remover livro";
+		}
 
+		FacesContext fc = FacesContext.getCurrentInstance();
+		fc.addMessage("", new FacesMessage(msg));
+		
+		return retorno;
+	}
+	
+	public String procurarAlterar(int isbn){
+		String retorno = "updatelivro.xhtml";
+		livroAtual = livroDao.pesquisaPorIsbn(isbn).get(0);
+		
+		return retorno;
+	}
 
 	public void pesquisarTodos() {
 		String msg = "Erro ao consultar livro";
@@ -149,6 +186,21 @@ public class LivroMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		fc.addMessage("", new FacesMessage(msg));
 
+	}
+	
+	public void pesquisarPorIsbn(int isbn){
+		String msg = "Livro encontrado!";
+
+		try {
+			livros = livroDao.pesquisaPorIsbn(isbn);
+						
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "Erro ao consultar livros";
+		}
+
+		FacesContext fc = FacesContext.getCurrentInstance();
+		fc.addMessage("", new FacesMessage(msg));
 	}
 	
 	public void pesquisarPorTitulo(String titulo) {
