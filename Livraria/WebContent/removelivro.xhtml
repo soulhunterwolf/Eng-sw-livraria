@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+
+	<title>Livraria Virtual - Inserir Livro</title>
+</h:head>
+<h:body>
+	<div class="body">
+		<h:form>
+			<ui:include src="menu.xhtml" />
+			<hr />
+			<h2 class="title" align="center">Remover livro</h2>
+			<p:growl id="messages" />
+			<div align="center">
+				<p:panelGrid columns="1">
+
+					<p:row>
+						<p:outputLabel for="isbn" value="ISBN: " />
+						<p:inputText id="isbn" style="width: 80px;"
+							value="#{livroMB.isbnFiltro}" placeholder="titulo..." />
+					</p:row>
+
+				</p:panelGrid>
+
+				<p:dataTable var="livro" value="#{livroMB.livros}">
+				
+					<p:column headerText="Isbn">
+						<h:outputText value="#{livro.isbn}" />
+					</p:column>
+					
+					<p:column headerText="Título">
+						<h:outputText value="#{livro.titulo}" />
+					</p:column>
+					
+					<p:column headerText="Autores">
+						<h:outputText value="#{livro.autor}" />
+					</p:column>
+					
+					<p:column headerText="Editora">
+						<h:outputText value="#{livro.editora}" />
+					</p:column>
+					
+					<p:column headerText="Categoria">
+						<h:outputText value="#{livro.resumoLivro}" />
+					</p:column>
+					
+					<p:column headerText="Sumário">
+						<h:outputText value="#{livro.sumario}" />
+					</p:column>
+					
+					<p:column headerText="Formato">
+						<h:outputText value="#{livro.formato}" />
+					</p:column>
+					
+					<p:column headerText="Número de páginas">
+						<h:outputText value="#{livro.numPaginas}" />
+					</p:column>
+					
+					<p:column headerText="Ação">
+						<h:commandButton value="Remover" action="#{livroMB.removerLivro(livroMB.isbnFiltro)}" style="font-size: 12px;"/>
+					</p:column>
+					
+					<p:column headerText="Data de publicação">
+						<h:outputText value="#{livro.dataPublicacao}" >
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+					
+				</p:dataTable>
+
+				<br />
+				<p:commandButton id="pesquisarRemover" value="Pesquisar livro"
+					action="#{livroMB.pesquisarPorIsbn(livroMB.isbnFiltro)}"
+					ajax="false" />
+				<p:commandButton id="cancelar" value="Cancelar"
+					action="#{livroMB.cancelar}" />
+			</div>
+
+		</h:form>
+		<hr />
+	</div>
+	<ui:include src="footer.xhtml" />
+</h:body>
+</html>
