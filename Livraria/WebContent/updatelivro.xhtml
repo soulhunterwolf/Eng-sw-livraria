@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Livraria Virtual - Atualizar Livro</title>
+</h:head>
+<h:body>
+	<div class="body">
+		<h:form>
+			<ui:include src="menu.xhtml" />
+			<hr />
+			<h2 class="title" align="center">Atualizar livro</h2>
+			<p:growl id="messages" />
+			<div align="center">
+				<p:panelGrid columns="1">
+					<p:row>
+						<p:outputLabel for="isbnFiltro" value="ISBN: " />
+						<p:inputText id="isbnFiltro" style="width: 80px;"
+							value="#{livroMB.isbnFiltro}" placeholder="isbn..."
+							maxlength="13" />
+					</p:row>
+					
+					<p:commandButton id="procurarAlterar" value="Procurar livro"
+					action="#{livroMB.procurarAlterar}"
+					ajax="false" />
+					
+				</p:panelGrid>
+
+				<p:panelGrid columns="1">
+					<p:row>
+						<p:outputLabel for="isbn" value="ISBN: " />
+						<p:inputText id="isbn" style="width: 80px;"
+							value="#{livroMB.livroAtual.isbn}" placeholder="isbn..."
+							maxlength="13" />
+					</p:row>
+					<p:row>
+						<p:outputLabel for="titulo" value="Título: " />
+						<p:inputText id="titulo" style="width: 80px;"
+							value="#{livroMB.livroAtual.titulo}" placeholder="titulo..." />
+					</p:row>
+
+					<p:row>
+						<p:outputLabel for="categoria" value="Categoria: " />
+						<p:inputText id="categoria" style="width: 80px;"
+							value="#{livroMB.livroAtual.categoria}"
+							placeholder="categoria..." />
+					</p:row>
+
+					<p:row>
+						<p:outputLabel for="autores" value="Autores: " />
+						<div id="div_autores">
+							<p:inputText id="autores" value="#{livroMB.nomeAutor}"
+								placeholder="autores..." /><br />
+								<p:inputText  value="#{livroMB.nomeAutorDois}"
+								placeholder="autores..." /><br />
+								<p:inputText  value="#{livroMB.nomeAutorTres}"
+								placeholder="autores..." /><br />
+								<p:inputText  value="#{livroMB.nomeAutorQuatro}"
+								placeholder="autores..." /><br />
+								<p:inputText  value="#{livroMB.nomeAutorCinco}"
+								placeholder="autores..." /><br />
+						</div>
+					</p:row>
+
+					<p:row>
+						<p:outputLabel for="editora" value="Editora: " />
+						<p:inputText id="editora" style="width: 90px;"
+							value="#{livroMB.livroAtual.editora}" placeholder="editora..." />
+					</p:row>
+
+					<p:row>
+						<p:outputLabel for="resumo" value="Resumo: " />
+						<p:inputTextarea id="resumo" cols="50" rows="5"
+							value="#{livroMB.livroAtual.resumoLivro}"
+							placeholder="faça um breve resumo do livro..." />
+					</p:row>
+
+					<p:row>
+						<p:outputLabel for="sumario" value="Sumário: " />
+						<p:inputTextarea id="sumario" cols="50" rows="5"
+							value="#{livroMB.livroAtual.sumario}"
+							placeholder="insira aqui o sumário do livro..." />
+					</p:row>
+
+					<p:row>
+						<p:outputLabel for="formato" value="Formato: " />
+						<p:selectOneMenu id="formato" value="#{livroMB.codigoFormato}">
+							<f:selectItems value="#{livroMB.descFormato}" var="formato" />
+						</p:selectOneMenu>
+					</p:row>
+
+					<p:row>
+						<p:outputLabel for="numPaginas" value="Número de páginas: " />
+						<p:inputText id="numPaginas" style="width: 50px;"
+							value="#{livroMB.livroAtual.numPaginas}" placeholder="..." />
+					</p:row>
+
+					<p:row>
+						<p:outputLabel for="dataPublicacao" value="Data de publicação: " />
+						<p:calendar id="dataPublicacao" effect="fold" mask="true"
+							pattern="dd/MM/yyyy" style="width: 40px" showOn="button"
+							value="#{livroMB.livroAtual.dataPublicacao}"
+							placeholder="dd/MM/yyyy">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="pt_BR" />
+						</p:calendar>
+					</p:row>
+				</p:panelGrid>
+				<br />
+				<p:commandButton id="atualizar" value="Atualizar livro"
+					action="#{livroMB.alterar(livroMB.livroAtual.isbn)}"
+					ajax="false" />
+				<p:commandButton id="cancelar" value="Cancelar"
+					action="updatelivro.xhtml" />
+			</div>
+
+		</h:form>
+		<hr />
+	</div>
+	<ui:include src="footer.xhtml" />
+</h:body>
+</html>
