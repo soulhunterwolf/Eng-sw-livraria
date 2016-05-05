@@ -26,9 +26,14 @@ public class LivroMB implements Serializable {
 	private ILivroDao livroDao;
 	private List<Livro> livros;
 	private String nomeAutor;
+	private String nomeAutorDois;
+	private String nomeAutorTres;
+	private String nomeAutorQuatro;
+	private String nomeAutorCinco;
 	private List<SelectItem> descFormato = new ArrayList<SelectItem>();
 	private int codigoFormato;
 	private String tituloFiltro;
+	private String filtroEditora;
 	private int isbnFiltro;
 
 	public LivroMB() {
@@ -36,6 +41,46 @@ public class LivroMB implements Serializable {
 		livros = new ArrayList<Livro>();
 		livroAtual = new Livro();
 		tituloFiltro = "";
+	}
+
+	public String getFiltroEditora() {
+		return filtroEditora;
+	}
+
+	public void setFiltroEditora(String filtroEditora) {
+		this.filtroEditora = filtroEditora;
+	}
+
+	public String getNomeAutorDois() {
+		return nomeAutorDois;
+	}
+
+	public void setNomeAutorDois(String nomeAutorDois) {
+		this.nomeAutorDois = nomeAutorDois;
+	}
+
+	public String getNomeAutorTres() {
+		return nomeAutorTres;
+	}
+
+	public void setNomeAutorTres(String nomeAutorTres) {
+		this.nomeAutorTres = nomeAutorTres;
+	}
+
+	public String getNomeAutorQuatro() {
+		return nomeAutorQuatro;
+	}
+
+	public void setNomeAutorQuatro(String nomeAutorQuatro) {
+		this.nomeAutorQuatro = nomeAutorQuatro;
+	}
+
+	public String getNomeAutorCinco() {
+		return nomeAutorCinco;
+	}
+
+	public void setNomeAutorCinco(String nomeAutorCinco) {
+		this.nomeAutorCinco = nomeAutorCinco;
 	}
 
 	public int getIsbnFiltro() {
@@ -122,11 +167,16 @@ public class LivroMB implements Serializable {
 			List<Autor> autores = new ArrayList<>();
 			Autor autor = new Autor();
 			
-			for(int i = 0; i == autores.size(); i++){
 				autor.setNome(this.nomeAutor);
 				autores.add(autor);
-				this.nomeAutor = "";
-			}
+				autor.setNome(this.nomeAutorDois);
+				autores.add(autor);
+				autor.setNome(this.nomeAutorTres);
+				autores.add(autor);
+				autor.setNome(this.nomeAutorQuatro);
+				autores.add(autor);
+				autor.setNome(this.nomeAutorCinco);
+				autores.add(autor);
 			
 			livroAtual.setFormato(FormatosEnum.getFormatoBrochuraEnum(this.codigoFormato).toString());
 			this.livroAtual.setAutor(autores);
@@ -136,6 +186,11 @@ public class LivroMB implements Serializable {
 			System.out.println("Autores: " + "\n" + this.livroAtual.getAutor().toString() + "\n");
 			System.out.println(livroAtual.toString());
 			livroAtual = new Livro();
+			this.nomeAutor = "";
+			this.nomeAutorDois = "";
+			this.nomeAutorTres = "";
+			this.nomeAutorQuatro = "";
+			this.nomeAutorCinco = "";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -164,10 +219,65 @@ public class LivroMB implements Serializable {
 		return retorno;
 	}
 	
-	public String procurarAlterar(int isbn){
+	public String procurarAlterar(){
 		String retorno = "updatelivro.xhtml";
-		livroAtual = livroDao.pesquisaPorIsbn(isbn).get(0);
+		try {
+			int isbn = isbnFiltro;
+			livros = livroDao.pesquisaPorIsbn(isbn);
+			livroAtual = livros.get(0);
+			
+			nomeAutor = livroAtual.getAutor().get(0).getNome();
+			nomeAutorDois = livroAtual.getAutor().get(1).getNome();
+			nomeAutorTres = livroAtual.getAutor().get(2).getNome();
+			nomeAutorQuatro = livroAtual.getAutor().get(3).getNome();
+			nomeAutorCinco = livroAtual.getAutor().get(4).getNome();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
+		return retorno;
+	}
+	
+	public String alterar(int isbn){
+		String msg = "Produto atualizado com sucesso!";
+		String retorno = "./updatelivro.xhtml";
+
+		try {
+
+			List<Autor> autores = new ArrayList<>();
+			Autor autor = new Autor();
+
+			autor.setNome(this.nomeAutor);
+			autores.add(autor);
+			autor.setNome(this.nomeAutorDois);
+			autores.add(autor);
+			autor.setNome(this.nomeAutorTres);
+			autores.add(autor);
+			autor.setNome(this.nomeAutorQuatro);
+			autores.add(autor);
+			autor.setNome(this.nomeAutorCinco);
+			autores.add(autor);
+			
+			
+			livroAtual.setFormato(FormatosEnum.getFormatoBrochuraEnum(this.codigoFormato).toString());
+			this.livroAtual.setAutor(autores);
+			livroDao.atualizar(isbn, livroAtual);
+			livros = new ArrayList<Livro>();
+			livroAtual = new Livro();
+			isbnFiltro = 0;
+			this.nomeAutor = "";
+			this.nomeAutorDois = "";
+			this.nomeAutorTres = "";
+			this.nomeAutorQuatro = "";
+			this.nomeAutorCinco = "";
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "Erro ao atualizar o produto!";
+		}
+
+		FacesContext fc = FacesContext.getCurrentInstance();
+		fc.addMessage("", new FacesMessage(msg));
+
 		return retorno;
 	}
 
@@ -237,12 +347,12 @@ public class LivroMB implements Serializable {
 
 	}
 	
-	public void pesquisarPorEditora() {
-		String msg = "Erro ao consultar livro";
+	public void pesquisarPorEditora(String editora) {
+		String msg = "Todos os livros pesquisados!";
 
 		try {
-			livros = livroDao.pesquisaTodos();
-			msg = "Todos os livros pesquisados!";
+			editora = filtroEditora;
+			livros = livroDao.pesquisaPorEditora(editora);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
