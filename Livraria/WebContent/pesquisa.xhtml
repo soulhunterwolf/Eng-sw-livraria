@@ -24,7 +24,12 @@
 			<p:inputText id="filtroTitulo" value="#{livroMB.tituloFiltro}"/>
 			<p:commandButton value="Pesquisar por título" ajax="false"
 				action="#{livroMB.pesquisarPorTitulo(livroMB.tituloFiltro)}" style="font-size: 14px;"/>
-				
+			
+			<br />
+			<p:inputText id="filtroEditora" value="#{livroMB.filtroEditora}"/>
+			<p:commandButton value="Pesquisar por editora" ajax="false"
+				action="#{livroMB.pesquisarPorEditora(livroMB.filtroEditora)}" style="font-size: 14px;"/>
+					
 			<br />
 			<p:accordionPanel value="#{livroMB.livros}" var="livro">
 				<p:tab title="Livro: - #{livro.titulo}">
