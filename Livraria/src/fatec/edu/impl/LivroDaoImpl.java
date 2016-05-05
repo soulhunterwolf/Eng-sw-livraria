@@ -136,9 +136,9 @@ public class LivroDaoImpl implements ILivroDao {
 
 		try {
 			EntityManager em = JPAUtil.getInstance().getEMF().createEntityManager();
-			String sql = "SELEC l FROM Livro l WHERE l.editora = :editora";
+			String sql = "SELECT l FROM Livro l WHERE l.editora LIKE :editora";
 			TypedQuery<Livro> qry = em.createQuery(sql, Livro.class);
-			qry.setParameter("editora", editora);
+			qry.setParameter("editora", "%" + editora + "%");
 			listaLivrosPorEditora = qry.getResultList();
 			em.close();
 		} catch (Exception e) {
@@ -175,7 +175,7 @@ public class LivroDaoImpl implements ILivroDao {
 
 		try {
 			EntityManager em = JPAUtil.getInstance().getEMF().createEntityManager();
-			String sql = "SELECT l FROM Livro l WHERE l.isbn = :isbn";
+			String sql = "SELECT l FROM Livro l WHERE l.isbn LIKE :isbn";
 			TypedQuery<Livro> qry = em.createQuery(sql, Livro.class);
 			qry.setParameter("isbn", isbn);
 			listaLivrosPorIsbn = qry.getResultList();
