@@ -33,6 +33,9 @@ public class Livro {
 	private int numPaginas;
 	private Date dataPublicacao;
 	private String titulo;
+	
+	@Column(name = "preco")
+	private int preco;
 
 	@Override
 	public String toString() {
@@ -50,6 +53,14 @@ public class Livro {
 
 	public void setIsbn(int isbn) {
 		this.isbn = isbn;
+	}
+	
+	public int getPreco() {
+		return preco;
+	}
+
+	public void setPreco(int preco) {
+		this.preco = preco;
 	}
 
 	@Column(name = "autor")
