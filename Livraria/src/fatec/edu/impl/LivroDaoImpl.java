@@ -155,9 +155,9 @@ public class LivroDaoImpl implements ILivroDao {
 
 		try {
 			EntityManager em = JPAUtil.getInstance().getEMF().createEntityManager();
-			String sql = "SELEC l FROM Livro l WHERE l.categoria = :categoria";
+			String sql = "SELECT l FROM Livro l WHERE l.categoria = :categoria";
 			TypedQuery<Livro> qry = em.createQuery(sql, Livro.class);
-			qry.setParameter("categoria", categoria);
+			qry.setParameter("categoria", "%" + categoria + "%");
 			listaLivrosPorCategoria = qry.getResultList();
 			em.close();
 		} catch (Exception e) {
