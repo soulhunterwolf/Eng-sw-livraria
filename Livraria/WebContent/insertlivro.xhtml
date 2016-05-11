@@ -95,6 +95,12 @@
 							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="pt_BR" />
 						</p:calendar>
 					</p:row>
+					
+					<p:row>
+						<p:outputLabel for="preco" value="Preço de Venda: "/>
+						<p:inputText id="preco" style="width: 50px;" 
+							value="#{livroMB.livroAtual.preco}" palceholder="R$ 0,00"/>
+					</p:row>
 				</p:panelGrid>
 				<br />
 				<p:commandButton id="inserir" value="Inserir livro"

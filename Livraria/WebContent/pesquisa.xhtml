@@ -18,18 +18,32 @@
 			<ui:include src="menu.xhtml" />
 			<br />
 			<p:commandButton value="Pesquisar todos" ajax="false"
-				action="#{livroMB.pesquisarTodos}" style="font-size: 14px;"/>
-			
+				action="#{livroMB.pesquisarTodos}" style="font-size: 14px;" />
+
 			<br />
-			<p:inputText id="filtroTitulo" value="#{livroMB.tituloFiltro}"/>
+			<p:inputText id="filtroTitulo" value="#{livroMB.tituloFiltro}" />
 			<p:commandButton value="Pesquisar por título" ajax="false"
-				action="#{livroMB.pesquisarPorTitulo(livroMB.tituloFiltro)}" style="font-size: 14px;"/>
-			
+				action="#{livroMB.pesquisarPorTitulo(livroMB.tituloFiltro)}"
+				style="font-size: 14px;" />
+
 			<br />
-			<p:inputText id="filtroEditora" value="#{livroMB.filtroEditora}"/>
+			<p:inputText id="filtroEditora" value="#{livroMB.filtroEditora}" />
 			<p:commandButton value="Pesquisar por editora" ajax="false"
-				action="#{livroMB.pesquisarPorEditora(livroMB.filtroEditora)}" style="font-size: 14px;"/>
-					
+				action="#{livroMB.pesquisarPorEditora(livroMB.filtroEditora)}"
+				style="font-size: 14px;" />
+
+			<br />
+			<p:inputText id="filtroCategoria" value="#{livroMB.categoriaFiltro}" />
+			<p:commandButton value="Pesquisar por Categoria" ajax="false"
+				action="#{livroMB.pesquisarPorCategoria(livroMB.categoriaFiltro)}"
+				style="font-size: 14px;" />
+
+			<br />
+			<p:inputText id="filtroAutor" value="#{livroMB.autorFiltro}" />
+			<p:commandButton value="Pesquisar por Autor" ajax="false"
+				action="#{livroMB.pesquisarPorAutor(livroMB.autorFiltro)}"
+				style="font-size: 14px;" />
+
 			<br />
 			<p:accordionPanel value="#{livroMB.livros}" var="livro">
 				<p:tab title="Livro: - #{livro.titulo}">
@@ -42,6 +56,9 @@
 
 						<h:outputText value="Editora: " style="font-weight: bold" />
 						<h:outputText value="#{livro.editora}" />
+
+						<h:outputText value="Editora: " style="font-weight: bold" />
+						<h:outputText value="#{livro.categoria}" />
 
 						<h:outputText value="Autores: " style="font-weight: bold" />
 						<h:outputText value="#{livro.autor}" />
@@ -65,6 +82,10 @@
 							<f:convertDateTime pattern="dd/MM/yyyy" />
 						</h:outputText>
 
+						<h:outputText value="Preço do livro: " style="font-weight: bold" />
+						<h:outputText value="R$#{livro.preco}" />
+
+						
 					</h:panelGrid>
 
 				</p:tab>
