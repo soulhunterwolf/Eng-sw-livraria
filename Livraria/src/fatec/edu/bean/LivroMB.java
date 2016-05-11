@@ -34,13 +34,49 @@ public class LivroMB implements Serializable {
 	private int codigoFormato;
 	private String tituloFiltro;
 	private String filtroEditora;
+	private String categoriaFiltro;
+	private String autorFiltro;
 	private int isbnFiltro;
+	private List<Livro> carrinho = new ArrayList<Livro>();
+	private int filtroCarrinho;
 
 	public LivroMB() {
 		livroDao = new LivroDaoImpl();
 		livros = new ArrayList<Livro>();
 		livroAtual = new Livro();
 		tituloFiltro = "";
+	}
+
+	public List<Livro> getCarrinho() {
+		return carrinho;
+	}
+
+	public void setCarrinho(List<Livro> carrinho) {
+		this.carrinho = carrinho;
+	}
+
+	public int getFiltroCarrinho() {
+		return filtroCarrinho;
+	}
+
+	public void setFiltroCarrinho(int filtroCarrinho) {
+		this.filtroCarrinho = filtroCarrinho;
+	}
+
+	public String getCategoriaFiltro() {
+		return categoriaFiltro;
+	}
+
+	public void setCategoriaFiltro(String categoriaFiltro) {
+		this.categoriaFiltro = categoriaFiltro;
+	}
+
+	public String getAutorFiltro() {
+		return autorFiltro;
+	}
+
+	public void setAutorFiltro(String autorFiltro) {
+		this.autorFiltro = autorFiltro;
 	}
 
 	public String getFiltroEditora() {
@@ -153,11 +189,11 @@ public class LivroMB implements Serializable {
 			this.descFormato.add(new SelectItem(value.getCodigoFormato(), value.getDescFormato()));
 		}
 	}
-	
-	public String cancelar(){
+
+	public String cancelar() {
 		return "index.xhtml";
 	}
-	
+
 	public String adicionar(Livro l) {
 		String msg = "Erro ao adicionar produto";
 		String retorno = "./insertlivro.xhtml";
@@ -166,18 +202,18 @@ public class LivroMB implements Serializable {
 
 			List<Autor> autores = new ArrayList<>();
 			Autor autor = new Autor();
-			
-				autor.setNome(this.nomeAutor);
-				autores.add(autor);
-				autor.setNome(this.nomeAutorDois);
-				autores.add(autor);
-				autor.setNome(this.nomeAutorTres);
-				autores.add(autor);
-				autor.setNome(this.nomeAutorQuatro);
-				autores.add(autor);
-				autor.setNome(this.nomeAutorCinco);
-				autores.add(autor);
-			
+
+			autor.setNome(this.nomeAutor);
+			autores.add(autor);
+			autor.setNome(this.nomeAutorDois);
+			autores.add(autor);
+			autor.setNome(this.nomeAutorTres);
+			autores.add(autor);
+			autor.setNome(this.nomeAutorQuatro);
+			autores.add(autor);
+			autor.setNome(this.nomeAutorCinco);
+			autores.add(autor);
+
 			livroAtual.setFormato(FormatosEnum.getFormatoBrochuraEnum(this.codigoFormato).toString());
 			this.livroAtual.setAutor(autores);
 			livroDao.adicionar(livroAtual);
@@ -200,11 +236,11 @@ public class LivroMB implements Serializable {
 
 		return retorno;
 	}
-	
-	public String removerLivro(int isbn){
+
+	public String removerLivro(int isbn) {
 		String retorno = "removelivro.xhtml";
 		String msg = "Livro removido com sucesso!";
-		
+
 		try {
 			livroDao.remover(isbn);
 			livros = new ArrayList<Livro>();
@@ -215,17 +251,17 @@ public class LivroMB implements Serializable {
 
 		FacesContext fc = FacesContext.getCurrentInstance();
 		fc.addMessage("", new FacesMessage(msg));
-		
+
 		return retorno;
 	}
-	
-	public String procurarAlterar(){
+
+	public String procurarAlterar() {
 		String retorno = "updatelivro.xhtml";
 		try {
 			int isbn = isbnFiltro;
 			livros = livroDao.pesquisaPorIsbn(isbn);
 			livroAtual = livros.get(0);
-			
+
 			nomeAutor = livroAtual.getAutor().get(0).getNome();
 			nomeAutorDois = livroAtual.getAutor().get(1).getNome();
 			nomeAutorTres = livroAtual.getAutor().get(2).getNome();
@@ -234,11 +270,11 @@ public class LivroMB implements Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return retorno;
 	}
-	
-	public String alterar(int isbn){
+
+	public String alterar(int isbn) {
 		String msg = "Produto atualizado com sucesso!";
 		String retorno = "./updatelivro.xhtml";
 
@@ -257,8 +293,7 @@ public class LivroMB implements Serializable {
 			autores.add(autor);
 			autor.setNome(this.nomeAutorCinco);
 			autores.add(autor);
-			
-			
+
 			livroAtual.setFormato(FormatosEnum.getFormatoBrochuraEnum(this.codigoFormato).toString());
 			this.livroAtual.setAutor(autores);
 			livroDao.atualizar(isbn, livroAtual);
@@ -287,7 +322,7 @@ public class LivroMB implements Serializable {
 		try {
 			livros = livroDao.pesquisaTodos();
 			msg = "Todos os livros pesquisados!";
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg = "Erro ao consultar livros";
@@ -297,13 +332,13 @@ public class LivroMB implements Serializable {
 		fc.addMessage("", new FacesMessage(msg));
 
 	}
-	
-	public void pesquisarPorIsbn(int isbn){
+
+	public void pesquisarPorIsbn(int isbn) {
 		String msg = "Livro encontrado!";
 
 		try {
 			livros = livroDao.pesquisaPorIsbn(isbn);
-						
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg = "Erro ao consultar livros";
@@ -312,14 +347,14 @@ public class LivroMB implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		fc.addMessage("", new FacesMessage(msg));
 	}
-	
+
 	public void pesquisarPorTitulo(String titulo) {
 		String msg = "Erro ao consultar livro";
 
 		try {
 			livros = livroDao.pesquisaPorTitulo(titulo);
 			msg = "Todos os livros pesquisados!";
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg = "Erro ao consultar livros";
@@ -329,14 +364,14 @@ public class LivroMB implements Serializable {
 		fc.addMessage("", new FacesMessage(msg));
 
 	}
-	
+
 	public void pesquisarPorAutor() {
 		String msg = "Erro ao consultar livro";
 
 		try {
 			livros = livroDao.pesquisaTodos();
 			msg = "Todos os livros pesquisados!";
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg = "Erro ao consultar livros";
@@ -346,14 +381,14 @@ public class LivroMB implements Serializable {
 		fc.addMessage("", new FacesMessage(msg));
 
 	}
-	
+
 	public void pesquisarPorEditora(String editora) {
 		String msg = "Todos os livros pesquisados!";
 
 		try {
 			editora = filtroEditora;
 			livros = livroDao.pesquisaPorEditora(editora);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg = "Erro ao consultar livros";
@@ -363,14 +398,46 @@ public class LivroMB implements Serializable {
 		fc.addMessage("", new FacesMessage(msg));
 
 	}
-	
-	public void pesquisarPorCategoria() {
+
+	public void adicionarCarrinho(int isbn) {
+
+		isbn = isbnFiltro;
+
+		try {
+			livros = livroDao.pesquisaPorIsbn(isbn);
+
+			carrinho.add(livros.get(0));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void removerDoCarrinho(int isbn) {
+
+		try {
+			livros = livroDao.pesquisaPorIsbn(isbn);
+
+			carrinho.remove(isbn);
+			
+			for(int i=0; i < carrinho.size(); i++){
+				if(carrinho.get(i).getIsbn() == isbn){
+					carrinho.remove(carrinho.get(i));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void pesquisarPorCategoria(String categoria) {
 		String msg = "Erro ao consultar livro";
 
 		try {
-			livros = livroDao.pesquisaTodos();
-			msg = "Todos os livros pesquisados!";
-			
+			categoria = categoriaFiltro;
+			livros = livroDao.pesquisaPorCategoria(categoria);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			msg = "Erro ao consultar livros";
