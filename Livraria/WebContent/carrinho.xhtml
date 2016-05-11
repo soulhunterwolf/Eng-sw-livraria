@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Livraria Virtual - Carrinho </title>
+</h:head>
+<h:body>
+	<div class="body">
+		<h:form>
+			<ui:include src="menu.xhtml" />
+			<hr />
+			<h2 class="title" align="center">Carrinho de Compras</h2>
+			<p:growl id="messages" />
+			<div align="center">
+				<p:panelGrid columns="1">
+					
+					<p:accordionPanel value="#{livroMB.carrinho}" var="livro">
+				<p:tab title="Livro: - #{livro.titulo}">
+
+					<h:panelGrid columns="2" cellpadding="2">
+
+						<f:facet name="header">
+							<p:outputLabel value="Título: - #{livro.titulo}" />
+						</f:facet>
+
+						<h:outputText value="Editora: " style="font-weight: bold" />
+						<h:outputText value="#{livro.editora}" />
+
+						<h:outputText value="Autores: " style="font-weight: bold" />
+						<h:outputText value="#{livro.autor}" />
+
+						<h:outputText value="Resumo: " style="font-weight: bold" />
+						<h:outputText value="#{livro.resumoLivro}" />
+
+						<h:outputText value="Sumário: " style="font-weight: bold" />
+						<h:outputText value="#{livro.sumario}" />
+
+						<h:outputText value="Formato: " style="font-weight: bold" />
+						<h:outputText value="#{livro.formato}" />
+
+						<h:outputText value="Número de páginas: "
+							style="font-weight: bold" />
+						<h:outputText value="#{livro.numPaginas}" />
+						
+						<h:outputText value="Preço do livro: "
+							style="font-weight: bold" />
+						<h:outputText value="#{livro.preco}" />
+
+						<h:outputText value="Data de publicação: "
+							style="font-weight: bold" />
+						<h:outputText value="#{livro.dataPublicacao}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+
+					</h:panelGrid>
+
+				</p:tab>
+			</p:accordionPanel>
+					
+				</p:panelGrid>
+				
+			</div>
+
+		</h:form>
+		<hr />
+	</div>
+	<ui:include src="footer.xhtml" />
+</h:body>
+</html>
